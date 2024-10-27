@@ -147,7 +147,6 @@ echo "--placement_region=${REGION}" >> "${YB_HOME}/master/conf/server.conf"
 echo "--placement_region=${REGION}" >> "${YB_HOME}/tserver/conf/server.conf"
 echo "--placement_zone=${INSTANCE_ZONE}" >> "${YB_HOME}/master/conf/server.conf"
 echo "--placement_zone=${INSTANCE_ZONE}" >> "${YB_HOME}/tserver/conf/server.conf"
-echo "--use_initial_sys_catalog_snapshot" >> "${YB_HOME}/master/conf/server.conf"
 
 ###############################################################################
 # Setup rpc_bind_addresses across all the nodes.
