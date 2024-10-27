@@ -46,7 +46,8 @@ fi
 case "${CLOUD_NAME}" in
 
   'AWS')
-    NODEIP="$(curl http://169.254.169.254/latest/meta-data/local-ipv4)"
+    TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+    NODEIP="$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/local-ipv4)"
     ;;
 
   'Azure')
@@ -146,7 +147,6 @@ echo "--placement_region=${REGION}" >> "${YB_HOME}/master/conf/server.conf"
 echo "--placement_region=${REGION}" >> "${YB_HOME}/tserver/conf/server.conf"
 echo "--placement_zone=${INSTANCE_ZONE}" >> "${YB_HOME}/master/conf/server.conf"
 echo "--placement_zone=${INSTANCE_ZONE}" >> "${YB_HOME}/tserver/conf/server.conf"
-echo "--use_initial_sys_catalog_snapshot" >> "${YB_HOME}/master/conf/server.conf"
 
 ###############################################################################
 # Setup rpc_bind_addresses across all the nodes.
